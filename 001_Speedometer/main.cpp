@@ -1,4 +1,6 @@
 #include <iostream>
+#include <sstream>
+#include <cmath>
 
 /*
  * Надо реализовать цифровой спидометр автомобиля. Сама модель автомобиля, которую нужно будет воссоздать весьма проста.
@@ -10,7 +12,26 @@
  *  которая потом и будет показываться на экране. Точность отображения скорость до 0.1 км/ч.
  */
 
+bool checkSpeed(double speed, double delta) {
+    return ((speed + delta) >= 0 && (speed + delta) <= 150);
+}
+
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+    std::stringstream text;
+    double speed = 0.0;
+    double delta;
+
+    do {
+        std::cout << "Input speed change: ";
+        std::cin >> delta;
+        while (!checkSpeed(speed, delta)) {
+            std::cout << "New speed out of limits. Input speed change: ";
+            std::cin >> delta;
+        }
+        text << round((speed += delta) * 10) / 10 << "km/h ";
+        std::cout << "Current speed: " << speed << "km/h" << std::endl;
+    } while (speed >= 0.01);
+
+    std::cout << text.str() << std::endl;
+    std::cout << "Car stopped" << std::endl;
 }

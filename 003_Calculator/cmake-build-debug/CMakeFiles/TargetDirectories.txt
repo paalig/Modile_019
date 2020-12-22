@@ -1,0 +1,3 @@
+C:/Users/Ana/ClionProjects/Module_019/003_Calculator/cmake-build-debug/CMakeFiles/003_Calculator.dir
+C:/Users/Ana/ClionProjects/Module_019/003_Calculator/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Ana/ClionProjects/Module_019/003_Calculator/cmake-build-debug/CMakeFiles/rebuild_cache.dir

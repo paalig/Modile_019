@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 
 /*
  * Требуется создать небольшую программу для вычисления простых действий с числами.
@@ -10,6 +11,27 @@
  */
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+    std::stringstream text;
+    std::string input;
+    double number1;
+    double number2;
+    char action;
+
+    std::cout << "Input calculation:";
+    std::cin >> input;
+
+    text << input;
+    text >> number1 >> action >> number2;
+
+    if (action == '+') {
+        std::cout << number1 + number2 << std::endl;
+    } else if (action == '-') {
+        std::cout << number1 - number2 << std::endl;
+    } else if (action == '*') {
+        std::cout << number1 * number2 << std::endl;
+    } else if (action == '/') {
+        std::cout << number1 / number2 << std::endl;
+    } else {
+        std::cout << "Wrong input" << std::endl;
+    }
 }

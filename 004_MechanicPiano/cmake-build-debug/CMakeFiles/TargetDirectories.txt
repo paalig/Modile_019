@@ -1,0 +1,3 @@
+C:/Users/Ana/ClionProjects/Module_019/004_MechanicPiano/cmake-build-debug/CMakeFiles/004_MechanicPiano.dir
+C:/Users/Ana/ClionProjects/Module_019/004_MechanicPiano/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Ana/ClionProjects/Module_019/004_MechanicPiano/cmake-build-debug/CMakeFiles/rebuild_cache.dir

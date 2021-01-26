@@ -19,7 +19,6 @@ int main() {
 
     std::cout << "Input calculation:";
     std::cin >> input;
-
     text << input;
     text >> number1 >> action >> number2;
 

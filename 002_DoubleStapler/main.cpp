@@ -54,7 +54,6 @@ int main() {
         fraction = std::stoi(strFraction);
         countDivider = CountSymbol(fraction, countDivider);
     }
-
     double result = integer;
     if (result >= 0) {
         result += fraction / pow(10, countDivider);

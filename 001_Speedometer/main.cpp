@@ -31,7 +31,6 @@ int main() {
         text << round((speed += delta) * 10) / 10 << "km/h ";
         std::cout << "Current speed: " << speed << "km/h" << std::endl;
     } while (speed >= 0.01);
-
     std::cout << text.str() << std::endl;
     std::cout << "Car stopped" << std::endl;
 }

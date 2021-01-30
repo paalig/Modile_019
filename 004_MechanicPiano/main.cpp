@@ -21,8 +21,6 @@
  * К примеру 1 << 0 - битовый флаг ноты до, 1 << 6 битовая маска ноты си.
  */
 
-//TO DO: Непонятно, зачем здесь enum - не используется
-
 bool CheckCombination(std::string str) {
     if (str.size() != 3) {
         return false;
@@ -45,29 +43,28 @@ enum Keys {
     SI
 };
 
-void PrintKeys(int key) {
-    if (key == 0) {
-        std::cout << "Do ";
-    } else if (key == 1) {
-        std::cout << "Re ";
-    } else if (key == 2) {
-        std::cout << "Mi ";
-    } else if (key == 3) {
-        std::cout << "Fa ";
-    } else if (key == 4) {
-        std::cout << "Sol ";
-    } else if (key == 5) {
-        std::cout << "La ";
+std::string PrintKeys(int key) {
+    if (key == DO) {
+        return "Do";
+    } else if (key == RE) {
+        return "Re";
+    } else if (key == MI) {
+        return "Mi";
+    } else if (key == FA) {
+        return "Fa";
+    } else if (key == SOL) {
+        return "Sol";
+    } else if (key == LA) {
+        return "La";
     } else {
-        std::cout << "Si ";
+        return "Si ";
     }
 }
 
 void PrintChar(int arr[12][3]) {
     for (int i = 0; i < 12; i++) {
         for (int j = 0; j < 3; j++) {
-            int current = arr[i][j];
-            PrintKeys(current);
+            std::cout << PrintKeys(Keys(arr[i][j])) << " ";
         }
         std::cout << std::endl;
     }

@@ -13,52 +13,29 @@ bool Check(int number) {
     return number > 0;
 }
 
-int CountZero(std::string str) {
-    int count = 0;
-    for (int i = 0; i < str.size(); i++) {
-        if (str[i] == '0') {
-            count++;
-        } else {
-            break;
-        }
-    }
-    return count;
-}
-
-int CountSymbol(int number, int count) {
-    while (number >= 1) {
-        number /= 10;
-        count++;
-    }
-    return count;
-}
-
 int main() {
-    std::string strInteger;
+    int integer;
     std::string strFraction;
 
     std::cout << "Input integer: ";
-    std::cin >> strInteger;
-    int integer = std::stoi(strInteger);
+    std::cin >> integer;
 
     std::cout << "Input fraction: ";
     std::cin >> strFraction;
-    int countDivider = CountZero(strFraction);
     int fraction = std::stoi(strFraction);
-    countDivider = CountSymbol(fraction, countDivider);
+    int count = strFraction.size();
 
     while (!Check(fraction)) {
         std::cout << "Incorrect value. Try again: ";
         std::cin >> strFraction;
-        countDivider = CountZero(strFraction);
         fraction = std::stoi(strFraction);
-        countDivider = CountSymbol(fraction, countDivider);
+        count = strFraction.size();
     }
     double result = integer;
     if (result >= 0) {
-        result += fraction / pow(10, countDivider);
+        result += fraction / pow(10, count);
     } else {
-        result -= fraction / pow(10, countDivider);
+        result -= fraction / pow(10, count);
     }
     std::cout << result;
 }

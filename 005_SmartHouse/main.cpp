@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 
 /*
  * Надо разработать упрощённую модель умного дома для дачи.
@@ -38,7 +39,7 @@
  * Программа выполняется следующим образом.
  * Каждый час пользователь сообщает состояние всех основных датчиков и света:
  *  температура снаружи, температура внутри, есть ли движение снаружи, включен ли свет в доме.
- * Данные параметры вводятся разом в одну строку, через пробел, а потом парсятся в переменные из строкового буфера stringstream.
+ * Данные параметры вводятся разом в одну строку, через пробел, а потом парсятся в переменные из строкового буфера.
  * Информация о движении выводится в формате yes/no. Включение и отключение света происходит с помощью on/off.
  * Стартовое время для симуляции умного дома - это 0:00. Требуется осуществить симуляцию на протяжении двух дней.
  */
@@ -49,8 +50,10 @@ int tempIndoor;
 int currentTime = 0;
 int currentDay = 1;
 int colorTemperature = 5000;
-bool actionOutdoor;
-bool lightIndoor;
+std::string action;
+std::string light;
+bool actionOutdoor = false;
+bool lightIndoor = false;
 
 enum Switches {
     HOUSE_INPUT = 1,
@@ -128,12 +131,38 @@ void CheckAirConditioning() {
     }
 }
 
+void CheckInput() {
+    if (action == "yes") {
+        actionOutdoor = true;
+    } else if (action == "no") {
+        actionOutdoor = false;
+    } else {
+        std::cout << "Wrong action input" << std::endl;
+    }
+
+    if (light == "on") {
+        lightIndoor = true;
+    } else if (light == "off") {
+        lightIndoor = false;
+    } else {
+        std::cout << "Wrong light input" << std::endl;
+    }
+}
+
 int main() {
 
     state |= HOUSE_INPUT;
     state |= OUTLETS;
 
     while (currentDay < 3) {
+
+        std::stringstream text;
+        std::string input;
+
+        std::cout << "Input calculation:";
+        std::cin >> tempOutdoor >> tempIndoor >> action >> light;
+
+        CheckInput();
 
         std::cout << "Day " << currentDay << ". Current time: " << currentTime << ":00" << std::endl;
 
@@ -143,11 +172,8 @@ int main() {
         CheckIndoorBoiler();
         CheckAirConditioning();
 
-        if (currentTime == 0) {
+        if (currentTime == 23) {
             colorTemperature = 5000;
-        }
-
-        if (currentTime = 23) {
             currentTime = 0;
             currentDay++;
         } else {

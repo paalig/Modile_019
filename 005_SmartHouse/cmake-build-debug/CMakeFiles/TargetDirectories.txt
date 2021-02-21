@@ -1,0 +1,3 @@
+C:/Users/Ana/ClionProjects/Module_019/005_SmartHouse/cmake-build-debug/CMakeFiles/005_SmartHouse.dir
+C:/Users/Ana/ClionProjects/Module_019/005_SmartHouse/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Ana/ClionProjects/Module_019/005_SmartHouse/cmake-build-debug/CMakeFiles/rebuild_cache.dir

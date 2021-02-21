@@ -43,10 +43,116 @@
  * Стартовое время для симуляции умного дома - это 0:00. Требуется осуществить симуляцию на протяжении двух дней.
  */
 
+int state = 0;
+int tempOutdoor;
+int tempIndoor;
+int currentTime = 0;
+int currentDay = 1;
+int colorTemperature = 5000;
+bool actionOutdoor;
+bool lightIndoor;
+
+enum Switches {
+    HOUSE_INPUT = 1,
+    OUTLETS = 2,
+    LIGHT_INDOOR = 4,
+    LIGHT_OUTDOOR = 8,
+    BOILER_INDOOR = 16,
+    BOILER_OUTDOOR = 32,
+    CONDITIONER = 64
+};
+
+//Освещение в доме
+void CheckIndoorLight() {
+    if (lightIndoor && !(state & LIGHT_INDOOR)) {
+        state |= LIGHT_INDOOR;
+        std::cout << "Indoor light switched on." << std::endl;
+    }
+    if (!lightIndoor && (state & LIGHT_INDOOR)) {
+        state &= ~LIGHT_INDOOR;
+        std::cout << "Indoor light switched off." << std::endl;
+    }
+    if ((currentTime >= 16 && currentTime <= 20) && (state & LIGHT_INDOOR)) {
+        colorTemperature -= 460;
+    }
+    if (state & LIGHT_INDOOR) {
+        std::cout << "Light temperature: " << colorTemperature << "K" << std::endl;
+    }
+}
+
+//Наружный свет
+void CheckOutdoorLight() {
+    if ((currentTime >= 16 || currentTime < 5) && actionOutdoor && !(state & LIGHT_OUTDOOR)) {
+        state |= LIGHT_OUTDOOR;
+        std::cout << "Outdoor light switched on." << std::endl;
+    }
+    if (((currentTime >= 5 && currentTime < 16) || !actionOutdoor) && (state & LIGHT_OUTDOOR)) {
+        state &= ~LIGHT_OUTDOOR;
+        std::cout << "Outdoor light switched off." << std::endl;
+    }
+}
+
+//Отопление водопровода
+void CheckOutdoorBoiler() {
+    if (tempOutdoor < 0 && !(state & BOILER_OUTDOOR)) {
+        state |= BOILER_OUTDOOR;
+        std::cout << "Outdoor boiler switched on." << std::endl;
+    }
+    if (tempOutdoor > 5 && (state & BOILER_OUTDOOR)) {
+        state &= ~BOILER_OUTDOOR;
+        std::cout << "Outdoor boiler switched off." << std::endl;
+    }
+}
+
+//Отопление в доме
+void CheckIndoorBoiler() {
+    if (tempIndoor < 22 &&  !(state & BOILER_INDOOR)) {
+        state |= BOILER_INDOOR;
+        std::cout << "Indoor boiler switched on." << std::endl;
+    }
+    if (tempIndoor >= 25 && (state & BOILER_INDOOR)) {
+        state &= ~BOILER_INDOOR;
+        std::cout << "Indoor boiler switched off." << std::endl;
+    }
+}
+
+//Кондиционер
+void CheckAirConditioning() {
+    if (tempIndoor >= 30 &&  !(state & CONDITIONER)) {
+        state |= CONDITIONER;
+        std::cout << "Air conditioning switched on." << std::endl;
+    }
+    if (tempIndoor <= 25 && (state & CONDITIONER)) {
+        state &= ~CONDITIONER;
+        std::cout << "Air conditioning switched off." << std::endl;
+    }
+}
+
 int main() {
 
-    enum 
+    state |= HOUSE_INPUT;
+    state |= OUTLETS;
 
-    std::cout << "Hello, World!" << std::endl;
+    while (currentDay < 3) {
+
+        std::cout << "Day " << currentDay << ". Current time: " << currentTime << ":00" << std::endl;
+
+        CheckIndoorLight();
+        CheckOutdoorLight();
+        CheckOutdoorBoiler();
+        CheckIndoorBoiler();
+        CheckAirConditioning();
+
+        if (currentTime == 0) {
+            colorTemperature = 5000;
+        }
+
+        if (currentTime = 23) {
+            currentTime = 0;
+            currentDay++;
+        } else {
+            currentTime++;
+        }
+    }
     return 0;
 }

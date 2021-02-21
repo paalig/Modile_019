@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <sstream>
 
 /*
@@ -34,37 +35,37 @@ bool CheckCombination(std::string str) {
 }
 
 enum Keys {
-    DO,
-    RE,
-    MI,
-    FA,
-    SOL,
-    LA,
-    SI
+    DO = 1,
+    RE = 2,
+    MI = 4,
+    FA = 8,
+    SOL = 16,
+    LA = 32,
+    TI = 64
 };
 
 std::string PrintKeys(int key) {
-    if (key == DO) {
-        return "Do";
-    } else if (key == RE) {
-        return "Re";
-    } else if (key == MI) {
-        return "Mi";
-    } else if (key == FA) {
-        return "Fa";
-    } else if (key == SOL) {
-        return "Sol";
-    } else if (key == LA) {
-        return "La";
+    if (key & DO) {
+        return "DO ";
+    } else if (key & RE) {
+        return "RE ";
+    } else if (key & MI) {
+        return "MI ";
+    } else if (key & FA) {
+        return "FA ";
+    } else if (key & SOL) {
+        return "SOL ";
+    } else if (key & LA) {
+        return "LA ";
     } else {
-        return "Si ";
+        return "TI ";
     }
 }
 
-void PrintChar(int arr[12][3]) {
+void PrintMelody(int arr[12][3]) {
     for (int i = 0; i < 12; i++) {
         for (int j = 0; j < 3; j++) {
-            std::cout << PrintKeys(Keys(arr[i][j])) << " ";
+            std::cout << PrintKeys(arr[i][j]);
         }
         std::cout << std::endl;
     }
@@ -72,6 +73,11 @@ void PrintChar(int arr[12][3]) {
 
 int main() {
     int array[12][3];
+    for (int i = 0; i < 12; i++) {
+        for (int j = 0; j < 3; j++) {
+            array[i][j] = 0;
+        }
+    }
     std::string combination;
     for (int i = 0; i < 12; i++) {
         std::cout << "Enter " << i + 1 << " combination: ";
@@ -81,8 +87,9 @@ int main() {
             std::cin >> combination;
         }
         for (int j = 0; j < 3; j++) {
-            array[i][j] = combination[j] - '1';
+            int index = combination[j] - '1';
+            array[i][j] |= 1 << index;
         }
     }
-    PrintChar(array);
+    PrintMelody(array);
 }
